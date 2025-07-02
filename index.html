@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phản hồi môn học</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- Logo UTH -->
+    <img src="uth.png" alt="Logo UTH" class="logo" />
+
+    <h1>Phản hồi môn học</h1>
+    <form class="feedback-form">
+
+      <label>Tên lớp:</label>
+      <input type="text" placeholder="Ví dụ: 12A3" required />
+
+      <label>Môn học:</label>
+      <input type="text" placeholder="Ví dụ: Toán" required />
+
+      <label>Năm học:</label>
+      <input type="text" placeholder="Ví dụ: 2024 - 2025" required />
+
+      <h3>I. Nội dung học phần, tài liệu giảng dạy</h3>
+
+      <div id="question-list"></div>
+
+      <label>Ý kiến khác (Phần dành cho SV ghi nhận xét và đề xuất đối với học phần đang được đánh giá):</label>
+      <textarea rows="4" placeholder="Nhập ý kiến..."></textarea>
+
+      <button type="submit">Gửi phản hồi</button>
+    </form>
+  </div>
+
+  <script>
+    const questions = [
+      // I. Nội dung học phần
+      "GV cung cấp đầy đủ đề cương chi tiết ngay khi bắt đầu học phần",
+      "GV phổ biến đầy đủ mục tiêu, nội dung, kế hoạch giảng dạy, chuẩn đầu ra, phương pháp kiểm tra đánh giá và nội quy của học phần trên lớp",
+      "GV cung cấp đầy đủ thông tin về tài liệu học tập (giáo trình, tài liệu tham khảo, website)",
+      "Giáo trình, tài liệu tham khảo được cập nhật và hữu ích đối với học phần",
+      "Nội dung học phần được giảng dạy đầy đủ theo đề cương",
+      "Nội dung học phần được cập nhật những thông tin mới",
+      "Nội dung giảng dạy kết nối được lý thuyết và thực tiễn",
+      "Mức độ hài lòng của Anh/Chị về nội dung học phần, tài liệu giảng dạy",
+
+      // II. Phương pháp giảng dạy
+      "GV truyền đạt nội dung bài giảng rõ ràng, dễ hiểu, sinh động",
+      "GV áp dụng đa dạng các phương pháp dạy học tích cực nhằm khuyến khích SV phát triển năng lực tự học, tự nghiên cứu và làm việc nhóm",
+      "GV khuyến khích khả năng sáng tạo, tư duy phân tích và phản biện của SV",
+      "GV tạo điều kiện cho SV thực hành, vận dụng kiến thức trong quá trình học",
+      "GV chỉ dẫn, tư vấn, định hướng cho SV các phương pháp học tập hiệu quả",
+      "GV giải đáp thỏa đáng thắc mắc của SV về các vấn đề có liên quan đến học phần",
+      "GV tôn trọng quan điểm, ý kiến cá nhân của SV",
+      "GV nhiệt tình hỗ trợ SV đối với các vấn đề liên quan đến học phần",
+      "GV có tác phong sư phạm tốt",
+      "Mức độ hài lòng của Anh/Chị về phương pháp giảng dạy",
+
+      // III. Kiểm tra đánh giá
+      "Phương pháp đánh giá kết quả học tập phù hợp, đa dạng, đảm bảo độ giá trị và tin cậy",
+      "Quá trình kiểm tra đánh giá được thực hiện nghiêm túc, chính xác, khách quan, công bằng",
+      "Kết quả kiểm tra, đánh giá được phản hồi kịp thời, giúp SV cải thiện kết quả học tập",
+      "Mức độ hài lòng của Anh/Chị về hoạt động kiểm tra đánh giá",
+
+      // Đánh giá chung
+      "Anh/Chị hài lòng như thế nào về chất lượng và hiệu quả giảng dạy, hướng dẫn của giảng viên đối với tiến bộ học tập của bản thân?"
+    ];
+
+    const options = [
+      "Rất không hài lòng",
+      "Không hài lòng",
+      "Phân vân",
+      "Hài lòng",
+      "Rất hài lòng"
+    ];
+
+    const questionList = document.getElementById("question-list");
+
+    questions.forEach((q, index) => {
+      const block = document.createElement("div");
+      block.className = "question-block";
+
+      const label = document.createElement("label");
+      label.className = "question-label";
+      label.textContent = `${index + 1}. ${q}`;
+      block.appendChild(label);
+
+      const optContainer = document.createElement("div");
+      optContainer.className = "options";
+
+      options.forEach((opt, i) => {
+        const id = `q${index + 1}_opt${i}`;
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = `q${index + 1}`;
+        radio.value = opt;
+        radio.id = id;
+
+        const lbl = document.createElement("label");
+        lbl.htmlFor = id;
+        lbl.textContent = opt;
+
+        const optionWrapper = document.createElement("div");
+        optionWrapper.appendChild(radio);
+        optionWrapper.appendChild(lbl);
+        optContainer.appendChild(optionWrapper);
+      });
+
+      block.appendChild(optContainer);
+      questionList.appendChild(block);
+    });
+  </script>
+</body>
+</html>
